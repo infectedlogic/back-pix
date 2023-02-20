@@ -4,7 +4,7 @@ var fs = require('fs');
 var path = require('path');
 const https = require('https');
 const Payment= require('../models/Payment');
-
+const jwt_decode = require("jwt-decode");
 const axios = require('axios');
 var nodeBase64 = require('nodejs-base64-converter');
 const FormData = require('form-data');
@@ -77,9 +77,10 @@ return res.send(201,resp.data)
   });
 
   router.post('/webhook', function (req, res) {
+  decoded=  jwt_decode(req.body.bodyEncrypted);
+
     Payment.create(
-           req.body
-        , 
+      decoded,
         function (err, payment) {
             if (err) return res.status(500).send("There was a problem adding the information to the database.");
             res.status(200).send(payment);
