@@ -35,7 +35,7 @@ router.get('/me', VerifyToken, function (req, res, next) {
   });
 });
 router.patch('/me', VerifyToken, function (req, res, next) {
-  Agent.findByIdAndUpdate(req.userId,req.body,
+  User.findByIdAndUpdate(req.userId,req.body,
       function (err, user) {
           if (err) return res.status(500).send("error balance");
           res.send('balance updated');

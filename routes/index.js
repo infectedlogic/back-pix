@@ -77,10 +77,9 @@ return res.send(201,resp.data)
   });
 
   router.post('/webhook', function (req, res) {
-  decoded=  jwt_decode(req.body.bodyEncrypted);
-
+  //decoded=  jwt_decode(req.body.bodyEncrypted);
     Payment.create(
-      decoded,
+      req.body,
         function (err, payment) {
             if (err) return res.status(500).send("There was a problem adding the information to the database.");
             res.status(200).send(payment);
